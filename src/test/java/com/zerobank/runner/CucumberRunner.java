@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         features = "src\\test\\resources\\features",
         dryRun = false,
         strict = false,
-        tags = "@pay_bills",
+        tags = "@online_statements",
         plugin = {
                 "html:target/default-report",
                 // this line will generate jason report

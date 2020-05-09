@@ -3,7 +3,11 @@ package com.zerobank.stepdefinition;
 import com.zerobank.pages.PayBillsPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
+
+import java.util.List;
+import java.util.Map;
 
 public class PayBillsStepDefinition {
     PayBillsPage payBillsPage=new PayBillsPage();
@@ -72,4 +76,41 @@ public class PayBillsStepDefinition {
     public void userShould_VerifyThatDateField_DoesnTAccept_AlphabeticCharacter() {
         Assert.assertTrue(payBillsPage.isEntryCorrect("date"));
     }
+
+    @Then("creates	new	payee	using	following	information")
+    public void creates_new_payee_using_following_information(Map<String,String> dataTable) {
+        payBillsPage.enterDataTo(dataTable.get("Payee Name"),"name");
+        payBillsPage.enterDataTo(dataTable.get("Payee Address"),"address");
+        payBillsPage.enterDataTo(dataTable.get("Account"),"account");
+        payBillsPage.enterDataTo(dataTable.get("Payee Details"),"details");
+        payBillsPage.completeProcess("Add");
+    }
+
+
+    @Then("message {string} should be displayed")
+    public void message_Should_Be_Displayed(String msg) {
+        Assert.assertEquals(msg,payBillsPage.getAlert());
+    }
+
+    @Then("following currencies should be available")
+    public void following_currencies_should_be_available(List<String> dataTable) {
+      payBillsPage.isContainsOptions(dataTable,"pc_currency");
+    }
+
+    @When("user tries to calculate cost without selecting a currency")
+    public void user_tries_to_calculate_cost_without_selecting_a_currency() {
+        payBillsPage.enterAmount("1000");
+        payBillsPage.completeProcess("Calculate Costs");
+    }
+    @When("user tries to calculate cost without entering a value")
+    public void user_tries_to_calculate_cost_without_entering_a_value() {
+        payBillsPage.completeProcess("Calculate Costs");
+    }
+
+    @Then("error message should be displayed")
+    public void error_message_should_be_displayed() {
+        Assert.assertTrue(payBillsPage.isWarningMessageDisplayed());
+    }
+
+
 }

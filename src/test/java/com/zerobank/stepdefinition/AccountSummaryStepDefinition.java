@@ -1,6 +1,7 @@
 package com.zerobank.stepdefinition;
 
 import com.zerobank.pages.AccountSummary;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -33,4 +34,6 @@ public class AccountSummaryStepDefinition {
         System.out.println("Expected values :: " + dataTable);
         Assert.assertEquals(accountSummary.getCreditAccountColumns(), dataTable);
     }
+
+
 }

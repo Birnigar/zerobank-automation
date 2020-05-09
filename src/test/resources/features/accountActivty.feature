@@ -10,7 +10,7 @@
        Then user should verify that title is "Zero - Account Activity"
 
     Scenario: Savings is default option on Accounts drop down
-      Then user should verify that default option is "Savings" in the Account drop down
+      Then user should verify that default option is "Savings"
 
     Scenario: Account drop down options
       And user clicks on Account drop down

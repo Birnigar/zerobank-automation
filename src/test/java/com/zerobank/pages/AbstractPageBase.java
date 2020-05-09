@@ -5,12 +5,19 @@ import com.zerobank.utulities.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class AbstractPageBase {
+    @FindBy(id="aa_accountId")
+    private WebElement accountSelectDropdown;
+
+
     protected String emptyField;
 
     protected WebDriver driver = Driver.getDriver();
@@ -118,6 +125,35 @@ public class AbstractPageBase {
     public  boolean isInputFieldContainsSpecialChar(WebElement element){
         String data=element.getAttribute("value");
         return !data.equals("")&& data!=null && data.matches(".*[^a-zA-Z0-9 ].*");
+    }
+
+
+
+
+    /**
+     * This method returns selected account type
+     *
+     * @return string data
+     */
+    public String getSelectedOption(String id) {
+        return new Select(driver.findElement(By.id(id))).getFirstSelectedOption().getText();
+    }
+
+    /**
+     * This method used to determine provided options are available in a drop down
+     *
+     * @param data provided List of data
+     * @return false if the options doesn't exist. Returns true else.
+     */
+    public boolean isContainsOptions(List<String> data, String id) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
+        List<String> options=BrowserUtils.getTextFromWebElements(new Select(driver.findElement(By.id(id))).getOptions());
+        for (String e : data) {
+            if (!options.contains(e)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
