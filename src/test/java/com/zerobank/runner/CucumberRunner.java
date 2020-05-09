@@ -8,10 +8,10 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         glue ="com\\zerobank\\stepdefinition",
-        features = "src\\test\\resources",
+        features = "src\\test\\resources\\features",
         dryRun = false,
         strict = false,
-        tags = "@accountActivity",
+        tags = "@pay_bills",
         plugin = {
                 "html:target/default-report",
                 // this line will generate jason report
